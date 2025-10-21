@@ -3,16 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>Presentación interactiva con voz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f8ff, #e6f7ff);
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #007acc;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    a {
+      display: inline-block;
+      background-color: #007acc;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    a:hover {
+      background-color: #005f99;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      font-size: 1em;
+      border: 2px solid #007acc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bienvenido a la presentación interactiva</h1>
+  <h1>?? Presentación interactiva con voz</h1>
   <p>Haz clic para ver la presentación en Lovable:</p>
   <a href="https://lovable.dev/projects/11dfd15b-edf9-4e46-8343-63c2bcbe019c" target="_blank">
     Ver presentación
   </a>
 
-  <h2>Generador de voz</h2>
-  <input type="text" id="texto" placeholder="Escribe algo en español..." size="50">
+  <h2>??? Generador de voz</h2>
+  <input type="text" id="texto" placeholder="Escribe algo en español...">
+  <br>
   <button onclick="generarAudio()">?? Reproducir</button>
 
   <script>
@@ -40,4 +88,3 @@
   </script>
 </body>
 </html>
-
