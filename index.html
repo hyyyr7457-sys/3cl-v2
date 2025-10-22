@@ -1,88 +1,79 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Presentaci�n interactiva con voz</title>
+  <title>🎤 English Dialogue Practice</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f0f8ff, #e6f7ff);
-      color: #333;
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
       text-align: center;
       padding: 40px;
     }
     h1 {
-      color: #007acc;
-      font-size: 2.5em;
+      font-size: 28px;
       margin-bottom: 10px;
     }
-    a {
-      display: inline-block;
-      background-color: #007acc;
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      margin-bottom: 30px;
+    .character {
+      margin-top: 30px;
     }
-    a:hover {
-      background-color: #005f99;
-    }
-    input[type="text"] {
+    input {
       padding: 10px;
       width: 60%;
-      font-size: 1em;
-      border: 2px solid #007acc;
-      border-radius: 6px;
-      margin-bottom: 10px;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
-      font-size: 1em;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
+      font-size: 16px;
+      margin-left: 10px;
       cursor: pointer;
-    }
-    button:hover {
-      background-color: #218838;
     }
   </style>
 </head>
 <body>
-  <h1>?? Presentaci�n interactiva con voz</h1>
-  <p>Haz clic para ver la presentaci�n en Lovable:</p>
-  <a href="https://lovable.dev/projects/11dfd15b-edf9-4e46-8343-63c2bcbe019c" target="_blank">
-    Ver presentaci�n
-  </a>
+  <h1>🎭 English Dialogue Practice</h1>
+  <p>Type a sentence for each character and click "Play" to hear their voice.</p>
 
-  <h2>??? Generador de voz</h2>
-  <input type="text" id="texto" placeholder="Escribe algo en espa�ol...">
-  <br>
-  <button onclick="generarAudio()">?? Reproducir</button>
+  <div class="character">
+    <h2>👩‍🏫 Teacher</h2>
+    <input type="text" id="teacherText" placeholder="e.g. Good morning, class!">
+    <button onclick="playVoice('teacher')">🔊 Play Teacher</button>
+  </div>
+
+  <div class="character">
+    <h2>🧑‍🎓 Student</h2>
+    <input type="text" id="studentText" placeholder="e.g. Good morning, teacher!">
+    <button onclick="playVoice('student')">🔊 Play Student</button>
+  </div>
 
   <script>
-    async function generarAudio() {
-      const texto = document.getElementById("texto").value;
+    const voices = {
+      teacher: "https://huggingface.co/spaces/coqui/XTTS-v2/resolve/main/samples/voice1.wav",
+      student: "https://huggingface.co/spaces/coqui/XTTS-v2/resolve/main/samples/voice2.wav"
+    };
+
+    async function playVoice(role) {
+      const text = document.getElementById(role + "Text").value;
+      const speakerWav = voices[role];
+
       const response = await fetch("https://api-inference.huggingface.co/models/coqui/XTTS-v2", {
         method: "POST",
         headers: {
           "Authorization": "Bearer hf_DuUipwZLgmYppJKKZQdVZegyVwCBDIYfR",
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ inputs: texto })
+        body: JSON.stringify({
+          inputs: {
+            text: text,
+            speaker_wav: speakerWav,
+            language: "en"
+          }
+        })
       });
 
-      if (!response.ok) {
-        alert("Error al generar el audio");
-        return;
-      }
-
       const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
+      const audioUrl = URL.createObjectURL(blob);
+      const audio = new Audio(audioUrl);
       audio.play();
     }
   </script>
