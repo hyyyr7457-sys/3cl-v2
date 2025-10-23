@@ -13,8 +13,4 @@ dialogues.forEach(line => {
 
   document.getElementById('dialogue-container').appendChild(container);
 });
-const audio = new Audio("audios/teacher-greetings.mp3");
 
-document.getElementById("play-teacher").addEventListener("click", () => {
-  audio.play();
-});
